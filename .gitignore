@@ -1,0 +1,20 @@
+
+# CMake build output
+cmake-build-*/
+build/
+cmake-build-debug/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Compiled binaries
+*.exe
+*.o
+*.obj
+*.out
+
+# CLion / JetBrains local settings
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
