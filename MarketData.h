@@ -1,8 +1,9 @@
 
-#ifndef UNTITLED2_MARKETDATA_H
-#define UNTITLED2_MARKETDATA_H
+#ifndef QUANTFORGE_MARKETDATA_H
+#define QUANTFORGE_MARKETDATA_H
 
 #include <stdexcept>
+#include <cmath>
 
 class MarketData {
 private:
@@ -21,6 +22,18 @@ public:
           close(close),
           volume(volume)
     {
+        if (!std::isfinite(open) ||
+            !std::isfinite(high) ||
+            !std::isfinite(low) ||
+            !std::isfinite(close)) {
+            throw std::invalid_argument("Prices must be finite");
+            }
+
+        if (open <= 0 || high <= 0 ||
+            low <= 0 || close <= 0) {
+            throw std::invalid_argument("Prices must be positive");
+            }
+
         if (low > high) {
             throw std::invalid_argument("Low cannot exceed high");
         }
@@ -37,6 +50,12 @@ public:
             throw std::invalid_argument("Volume cannot be negative");
         }
     }
+
+    double getOpen() const { return open; }
+    double getHigh() const { return high; }
+    double getLow() const { return low; }
+    double getClose() const { return close; }
+    long long getVolume() const { return volume; }
 };
 
-#endif // UNTITLED2_MARKETDATA_H
+#endif // QUANTFORGE_MARKETDATA_H
